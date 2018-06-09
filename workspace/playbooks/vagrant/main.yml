@@ -1,0 +1,18 @@
+---
+# Create bridge interfaces for docker communication
+
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    - name: "Check if We are logged in."
+      shell: uname -r
+      register: out
+
+    - name: print results
+      debug: 
+        msg: "{{ out.stdout }}"
+  
+  roles:
+    - rnkoaa.ssh
+    - rnkoaa.lockdown

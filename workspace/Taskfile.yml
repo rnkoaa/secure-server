@@ -1,0 +1,32 @@
+version: '2'
+
+vars:
+  INVENTORY: inventory/vagrant
+
+tasks:
+
+  generate-ssh-keys:
+    desc: Generate SSH keys for key based authentication
+    silent: true
+    cmds:
+      - echo 'Generating ssh keys'
+      - mkdir -p .ssh
+      - ssh-keygen -t rsa -b 4096 -C "vagrant@vagrant.com" -N "" -f .ssh/id_rsa
+
+  # main:
+  #   silent: true
+  #   cmds:
+  #     - echo "Hello, World!"
+
+  ## Ansible commands
+  ansible-test:
+    silent: true
+    cmds:
+      - echo "Testing Ansible connection"
+      - ansible -i {{.INVENTORY}} all -m ping
+
+  main:
+    silent: true
+    cmds:
+      - echo "Testing Ansible connection"
+      - ansible-playbook -i {{.INVENTORY}} playbooks/vagrant/main.yml
