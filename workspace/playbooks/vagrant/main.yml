@@ -15,4 +15,34 @@
   
   roles:
     - rnkoaa.ssh
-    - rnkoaa.lockdown
+    # - rnkoaa.lockdown
+
+  tasks:
+    - name: "Copy br0.netdev"
+      copy:
+        src: files/br0.netdev
+        dest: /etc/systemd/network/br0.netdev
+        owner: root
+        group: root
+        mode: 0744
+      become: yes
+    
+    - name: "Copy br0.netdev"
+      copy:
+        src: files/br0.network
+        dest: /etc/systemd/network/br0.network
+        owner: root
+        group: root
+        mode: 0644
+      become: yes
+
+    - name: "Restart systemd-networkd"
+      systemd:
+        name: systemd-networkd
+        daemon_reload: yes
+        state: restarted
+      become: yes
+
+    - name: "Enable br0 dummy network interface"
+      command: ip link set dev br0 up
+      become: yes

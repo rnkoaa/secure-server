@@ -1,0 +1,5 @@
+[Match]
+Name=br0
+
+[Network]
+Address=169.254.1.1/32
