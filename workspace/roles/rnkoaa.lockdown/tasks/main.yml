@@ -13,17 +13,3 @@
 
 # configure ufw
 - import_tasks: ufw.yml
-
-# - name: Change ssh port
-#   lineinfile: dest=/etc/ssh/sshd_config
-#               regexp="^Port\s"
-#               line="Port {{ ubuntu_common_ssh_port }}"
-#               state=present
-#   notify: Restart ssh
-
-# - name: Disallow root SSH access
-#   lineinfile: dest=/etc/ssh/sshd_config
-#               regexp="^PermitRootLogin"
-#               line="PermitRootLogin no"
-#               state=present
-#   notify: Restart ssh
